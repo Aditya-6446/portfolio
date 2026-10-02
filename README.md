@@ -15,7 +15,7 @@ No installation or build step is required. Open `index.html`, or run a static we
 
 To add a project, duplicate an existing `<article class="project ...">` inside `#projects`, update its text and links, and add any preview image to `assets/`. Keep factual claims grounded in the project evidence. Use descriptive image text and include real image dimensions.
 
-The résumé download is the corrected September 2026 DOCX. Replace `assets/Aditya-Sharma-Resume.docx` to update it, or change the three résumé links if switching to PDF.
+The résumé download is the updated October 2026 DOCX. Replace `assets/Aditya-Sharma-Resume.docx` to update it, or change the three résumé links if switching to PDF.
 
 ## GitHub Pages
 
