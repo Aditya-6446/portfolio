@@ -400,6 +400,15 @@ h1 em {
   color: var(--muted-dark);
   max-width: 440px;
 }
+.project-copy > .project-access {
+  margin: 14px 0 0;
+  font-size: 0.78rem;
+}
+.project-access a {
+  color: var(--paper);
+  border-bottom: 1px solid var(--accent);
+}
+.project-access a:hover { color: var(--accent); }
 .tags {
   list-style: none;
   display: flex;
@@ -438,6 +447,13 @@ h1 em {
   color: var(--ink);
   padding: 28px 24px 18px;
   overflow: hidden;
+}
+.payments-visual {
+  background: #e8ede8;
+}
+.payments-visual .report-label,
+.payments-visual > p {
+  color: #47665c;
 }
 .report-label {
   display: flex;
