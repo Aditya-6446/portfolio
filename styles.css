@@ -102,6 +102,25 @@ button:disabled {
   position: relative;
   z-index: 2;
 }
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition:
+    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: 0ms;
+}
+.reveal.is-visible,
+.reveal:focus-within {
+  opacity: 1;
+  transform: none;
+}
+.reveal.is-visible {
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal:focus-within {
+  transition: none;
+}
 .dark {
   background: var(--ink);
   color: var(--paper);
@@ -990,6 +1009,11 @@ h3 {
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
   html {
     scroll-behavior: auto;
   }
@@ -998,5 +1022,12 @@ h3 {
   *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
+  }
+}
+@media print {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

@@ -25,11 +25,63 @@
   });
   document.querySelector("#year").textContent = new Date().getFullYear();
 
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (!reducedMotion.matches && "IntersectionObserver" in window) {
+    const revealTargets = document.querySelectorAll(
+      ".hero-kicker, .intro-name, #hero-title, .hero-note, .hero-footer, " +
+        ".section-label, .section-body > h2, .section-heading > div, " +
+        ".two-column-copy, .focus-strip, .project-copy, .project-visual, " +
+        ".dashboard-preview, .experience-list > .experience-item, " +
+        ".earlier-experience, .resume-link, .section-body > .section-description, " +
+        ".now-grid > article, .skills-grid > article, .education, " +
+        ".contact-section .eyebrow, .contact-email, .contact-links",
+    );
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+          } else if (
+            entry.rootBounds &&
+            entry.boundingClientRect.top >= entry.rootBounds.bottom
+          ) {
+            entry.target.classList.remove("is-visible");
+          }
+        });
+      },
+      { threshold: 0, rootMargin: "0px 0px -10% 0px" },
+    );
+    const staggerCounts = new Map();
+    revealTargets.forEach((element) => {
+      const group = element.closest(".hero, .now-grid, .skills-grid");
+      if (group) {
+        const count = staggerCounts.get(group) || 0;
+        element.style.setProperty(
+          "--reveal-delay",
+          `${Math.min(count, 3) * 90}ms`,
+        );
+        staggerCounts.set(group, count + 1);
+      }
+      element.classList.add("reveal");
+      revealObserver.observe(element);
+    });
+    document.addEventListener("focusin", (event) => {
+      const element = event.target.closest(".reveal");
+      if (element) {
+        element.classList.add("is-visible");
+      }
+    });
+    reducedMotion.addEventListener("change", () => {
+      if (!reducedMotion.matches) return;
+      revealObserver.disconnect();
+      revealTargets.forEach((element) => element.classList.add("is-visible"));
+    });
+  }
+
   const canvas = document.querySelector("#network");
   const context = canvas.getContext("2d");
   if (!context) return;
   const motionButton = document.querySelector("#motion-toggle");
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   let manualPause = false;
   try {
     manualPause = localStorage.getItem("portfolio-motion-paused") === "true";
@@ -50,7 +102,7 @@
     const v = Math.sin(seed * 127.1 + 311.7) * 43758.5453;
     return v - Math.floor(v);
   };
-  const tones = { dark: [161, 182, 198, 0.23], light: [61, 86, 105, 0.16] };
+  const tones = { dark: [161, 182, 198, 0.26], light: [61, 86, 105, 0.18] };
   const mix = (a, b, amount) =>
     a.map((value, i) => value + (b[i] - value) * amount);
   function toneAt(y) {
@@ -124,10 +176,10 @@
     context.clearRect(0, 0, width, height);
     const scroll = window.scrollY;
     const positions = nodes.map((node) => ({
-      x: node.x + Math.sin(elapsed * 0.16 + node.phase) * 9,
-      y: node.y - scroll + Math.cos(elapsed * 0.12 + node.phase) * 11,
+      x: node.x + Math.sin(elapsed * 0.22 + node.phase) * 20,
+      y: node.y - scroll + Math.cos(elapsed * 0.16 + node.phase) * 24,
     }));
-    context.lineWidth = 0.65;
+    context.lineWidth = 0.75;
     for (const [from, to] of edges) {
       const a = positions[from],
         b = positions[to];

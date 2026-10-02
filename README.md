@@ -10,7 +10,7 @@ No installation or build step is required. Open `index.html`, or run a static we
 
 - `index.html`: biography, project cards, experience, learning, skills and contact links.
 - `styles.css`: shared colors, typography, layout and responsive behavior.
-- `app.js`: accessible mobile navigation and the continuous background network.
+- `app.js`: accessible mobile navigation, gentle scroll reveals and the continuous background network.
 - `assets/`: résumé, dashboard PDF, project previews and favicon.
 
 To add a project, duplicate an existing `<article class="project ...">` inside `#projects`, update its text and links, and add any preview image to `assets/`. Keep factual claims grounded in the project evidence. Use descriptive image text and include real image dimensions.
@@ -23,7 +23,7 @@ Publish the `main` branch from its root directory. `.nojekyll` keeps these stati
 
 ## Accessibility and motion
 
-The page includes semantic landmarks, keyboard focus states, a skip link, a responsive menu, native disclosure controls, and descriptive image text. The network is decorative and never intercepts input. It becomes stationary when reduced motion is enabled, can also be paused with the footer control, and suspends animation in a hidden tab.
+The page includes semantic landmarks, keyboard focus states, a skip link, a responsive menu, native disclosure controls, and descriptive image text. Headings, copy and project cards gently fade and rise into view, with a short stagger on the hero and grouped cards. Scrolling back up reverses the animation as content leaves the bottom of the viewport; scrolling down reveals it again. Keyboard focus immediately reveals its content. Content remains visible without JavaScript, with reduced motion enabled and when printing. The network is decorative and never intercepts input. It becomes stationary when reduced motion is enabled, can also be paused with the footer control, and suspends animation in a hidden tab.
 
 ## Maintenance
 
